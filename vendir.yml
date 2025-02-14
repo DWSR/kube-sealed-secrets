@@ -1,0 +1,53 @@
+apiVersion: vendir.k14s.io/v1alpha1
+kind: Config
+
+minimumRequiredVersion: 0.41.0
+
+directories:
+  - path: upstream
+    contents:
+      - path: "v0.28.0/upstream"
+        githubRelease:
+          slug: bitnami/sealed-secrets
+          tag: v0.28.0
+          assetNames:
+            - controller.yaml
+          disableAutoChecksumValidation: true
+      - path: "v0.28.0/base"
+        inline:
+          paths:
+            namespace.yaml: |
+              apiVersion: v1
+              kind: Namespace
+              metadata:
+                name: sealed-secrets-system
+                labels:
+                  pod-security.kubernetes.io/audit: restricted
+                  pod-security.kubernetes.io/enforce: restricted
+            kustomization.yaml: |
+              apiVersion: kustomize.config.k8s.io/v1beta1
+              kind: Kustomization
+              namespace: sealed-secrets-system
+
+              resources:
+                - ../upstream/controller.yaml
+                - namespace.yaml
+
+              labels:
+                - pairs:
+                    app.kubernetes.io/version: "0.28.0"
+                  includeSelectors: false
+
+              patches:
+                - target:
+                    kind: Deployment
+                  patch: |-
+                    - op: add
+                      path: /spec/template/spec/priorityClassName
+                      value: system-cluster-critical
+                - target:
+                    kind: "(Deployment|StatefulSet)"
+                  patch: |-
+                    - op: replace
+                      path: /spec/revisionHistoryLimit
+                      value: 2
