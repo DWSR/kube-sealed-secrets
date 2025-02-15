@@ -48,7 +48,7 @@ jobs:
 
   generate-matrix:
     runs-on: ubuntu-latest
-    if: env.NUM_PARTITIONS > 1
+    if: vars.NUM_PARTITIONS > 1
     steps:
       - name: Checkout code
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -78,6 +78,7 @@ jobs:
   tests-matrix:
     needs: generate-matrix
     runs-on: ubuntu-latest
+    if: vars.NUM_PARTITIONS > 1
     strategy:
       fail-fast: false
       matrix: "${{ fromJson(needs.generate-matrix.outputs.test-matrix) }}"
