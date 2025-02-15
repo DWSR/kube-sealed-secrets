@@ -13,6 +13,7 @@ import (
 	"github.com/stretchr/testify/require"
 	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
+	policyv1 "k8s.io/api/policy/v1"
 	extv1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	"k8s.io/apimachinery/pkg/api/meta"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -70,6 +71,8 @@ func TestSealedSecrets(t *testing.T) {
 		NamespaceIsRestricted(nsName),
 		CRDExists("sealedsecrets.bitnami.com", "v1alpha1"),
 		DeploymentExists(nsName, deployName),
+		PodDisruptionBudgetExists(nsName, deployName),
+		PodDisruptionBudgetTargetsDeployment(nsName, deployName, deployName),
 		DeploymentIsSystemClusterCritical(nsName, deployName),
 		DeploymentHasCPURequests(nsName, deployName),
 		DeploymentHasNoCPULimits(nsName, deployName),
@@ -417,6 +420,43 @@ func CRDExists(crdName string, crdVersion string) e2etypes.Feature {
 			}
 
 			assert.True(t, foundVersion)
+
+			return ctx
+		}).
+		Feature()
+}
+
+func PodDisruptionBudgetExists(namespaceName string, pdbName string) e2etypes.Feature {
+	return features.New("PodDisruptionBudgetExists").
+		WithLabel("type", "pdb").
+		AssessWithDescription("pdbExists", "PDB should exist", func(ctx context.Context, t *testing.T, cfg *envconf.Config) context.Context {
+			var pdb policyv1.PodDisruptionBudget
+
+			err := cfg.Client().Resources("poddisruptionbudgets").WithNamespace(namespaceName).Get(ctx, pdbName, namespaceName, &pdb)
+			require.NoError(t, err)
+
+			return ctx
+		}).
+		Feature()
+}
+
+func PodDisruptionBudgetTargetsDeployment(namespaceName string, pdbName string, deployName string) e2etypes.Feature {
+	return features.New("PodDisruptionBudgetTargetsDeployment").
+		WithLabel("type", "pdb").
+		AssessWithDescription("pdbTargetsDeployment", "PDB should target deployment", func(ctx context.Context, t *testing.T, cfg *envconf.Config) context.Context {
+			var pdb policyv1.PodDisruptionBudget
+			var deploy appsv1.Deployment
+
+			err := cfg.Client().Resources("poddisruptionbudgets").WithNamespace(namespaceName).Get(ctx, pdbName, namespaceName, &pdb)
+			require.NoError(t, err)
+
+			err = cfg.Client().Resources("deployments").WithNamespace(namespaceName).Get(ctx, deployName, namespaceName, &deploy)
+			require.NoError(t, err)
+
+			for labelKey, labelValue := range pdb.Spec.Selector.MatchLabels {
+				require.Equal(t, deploy.Spec.Selector.MatchLabels, labelKey)
+				require.Equal(t, deploy.Spec.Selector.MatchLabels[labelKey], labelValue)
+			}
 
 			return ctx
 		}).
