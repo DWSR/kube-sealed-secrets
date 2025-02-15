@@ -31,8 +31,8 @@ jobs:
           echo '${{ toJson(matrix) }}'
           go tool gotestsum \
             --packages "${{ matrix.packages }}" \
-            --junitfile '${{ runner.temp }}/reports/run-${{ github.run-number }}.junit.xml' \
-            --jsonfile '${{ runner.temp }}/reports/run-${{ github.run-number }}.json' \
+            --junitfile '${{ runner.temp }}/reports/run-${{ github.run_number }}.junit.xml' \
+            --jsonfile '${{ runner.temp }}/reports/run-${{ github.run_number }}.json' \
             --format github-actions \
             --format-icons text \
             --rerun-fails
@@ -97,8 +97,8 @@ jobs:
           echo '${{ toJson(matrix) }}'
           go tool gotestsum \
             --packages "${{ matrix.packages }}" \
-            --junitfile '${{ runner.temp }}/reports/run-${{ github.run-number }}-${{ matrix.id }}.junit.xml' \
-            --jsonfile '${{ runner.temp }}/reports/run-${{ github.run-number }}-${{ matrix.id }}.json' \
+            --junitfile '${{ runner.temp }}/reports/run-${{ github.run_number }}-${{ matrix.id }}.junit.xml' \
+            --jsonfile '${{ runner.temp }}/reports/run-${{ github.run_number }}-${{ matrix.id }}.json' \
             --format github-actions \
             --format-icons text \
             --rerun-fails
