@@ -31,8 +31,8 @@ jobs:
           echo '${{ toJson(matrix) }}'
           go tool gotestsum \
             --packages "${{ matrix.packages }}" \
-            --junitfile '${{ runner.temp }}/reports/run-${{ github.run-number }}-${{ matrix.id }}.junit.xml' \
-            --jsonfile '${{ runner.temp }}/reports/run-${{ github.run-number }}-${{ matrix.id }}.json' \
+            --junitfile '${{ runner.temp }}/reports/run-${{ github.run-number }}.junit.xml' \
+            --jsonfile '${{ runner.temp }}/reports/run-${{ github.run-number }}.json' \
             --format github-actions \
             --format-icons text \
             --rerun-fails
@@ -124,16 +124,21 @@ jobs:
         with:
           name: TestReports
           path: ${{ runner.temp }}/reports
-      - name: Save test reports
-        uses: actions/cache/save@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0
+      - name: Generate test summary
+        uses: test-summary/action@31493c76ec9e7aa675f1585d3ed6f1da69269a86 # v2.4
         with:
-          path: "${{ runner.temp }}/reports"
-          key: "test-reports-${{ github.run-number }}"
+          paths: ${{ runner.temp }}/reports/run-${{ github.run-number }}*.junit.xml
+          show: all
       - name: Prune old reports
         run: |
           ls -lhR '${{ runner.temp }}/reports'
           find '${{ runner.temp }}/reports' -mindepth 1 -mtime +30 -delete
           ls -lhR '${{ runner.temp }}/reports'
+      - name: Save test reports
+        uses: actions/cache/save@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0
+        with:
+          path: "${{ runner.temp }}/reports"
+          key: "test-reports-${{ github.run-number }}"
 
   lint:
     name: lint
