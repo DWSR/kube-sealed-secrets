@@ -37,7 +37,7 @@ jobs:
               --timing-files '${{ runner.temp }}/reports/*.json' \
           ) >> "${GITHUB_OUTPUT}"
   tests:
-    needs: test-matrix
+    needs: generate-matrix
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
