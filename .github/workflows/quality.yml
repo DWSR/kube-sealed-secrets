@@ -63,7 +63,7 @@ jobs:
         uses: actions/cache/restore@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0
         with:
           path: "${{ runner.temp }}/reports"
-          key: "test-reports-${{ github.run-number }}"
+          key: "test-reports-${{ github.run_number }}"
           restore-keys: |
             test-reports-
       - name: Build matrix
@@ -138,7 +138,7 @@ jobs:
         uses: actions/cache/save@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0
         with:
           path: "${{ runner.temp }}/reports"
-          key: "test-reports-${{ github.run-number }}"
+          key: "test-reports-${{ github.run_number }}"
 
   lint:
     name: lint
