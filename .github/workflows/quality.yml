@@ -128,7 +128,7 @@ jobs:
         uses: test-summary/action@31493c76ec9e7aa675f1585d3ed6f1da69269a86 # v2.4
         with:
           paths: ${{ runner.temp }}/reports/run-${{ github.run_number }}*.junit.xml
-          show: all
+          show: fail, skip
       - name: Prune old reports
         run: |
           ls -lhR '${{ runner.temp }}/reports'
