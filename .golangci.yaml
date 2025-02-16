@@ -2,7 +2,7 @@ run:
   timeout: 5m
 output:
   formats:
-    - format: github-actions
+    - format: colored-line-number
 issues:
   uniq-by-line: false
   exclude-use-default: false
