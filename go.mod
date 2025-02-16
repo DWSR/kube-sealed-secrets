@@ -3,9 +3,7 @@ module github.com/DWSR/kube-sealed-secrets
 go 1.24.0
 
 require (
-	github.com/stretchr/testify v1.10.0
-	k8s.io/api v0.32.2
-	k8s.io/apiextensions-apiserver v0.32.2
+	github.com/DWSR/kubeassert-go v0.0.0-20250216035038-31f7e65bdb60
 	k8s.io/apimachinery v0.32.2
 	k8s.io/client-go v0.32.2
 	sigs.k8s.io/e2e-framework v0.6.0
@@ -58,6 +56,7 @@ require (
 	github.com/prometheus/procfs v0.15.1 // indirect
 	github.com/spf13/cobra v1.8.1 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
+	github.com/stretchr/testify v1.10.0 // indirect
 	github.com/vladimirvivien/gexe v0.4.1 // indirect
 	github.com/x448/float16 v0.8.4 // indirect
 	github.com/xlab/treeprint v1.2.0 // indirect
@@ -77,6 +76,8 @@ require (
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	gotest.tools/gotestsum v1.12.0 // indirect
+	k8s.io/api v0.32.2 // indirect
+	k8s.io/apiextensions-apiserver v0.32.2 // indirect
 	k8s.io/component-base v0.32.2 // indirect
 	k8s.io/klog/v2 v2.130.1 // indirect
 	k8s.io/kube-openapi v0.0.0-20241212222426-2c72e554b1e7 // indirect

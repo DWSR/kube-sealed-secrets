@@ -1,3 +1,5 @@
+github.com/DWSR/kubeassert-go v0.0.0-20250216035038-31f7e65bdb60 h1:2gnfubZPhgfQbcdOEQyOyH+ZfUkPh0wFt6GjkneXlcg=
+github.com/DWSR/kubeassert-go v0.0.0-20250216035038-31f7e65bdb60/go.mod h1:Y0k9eBfrM07iKg8hvhvNgxzLuWAcJ9mtpvkEtBe6cgU=
 github.com/armon/go-socks5 v0.0.0-20160902184237-e75332964ef5 h1:0CwZNZbxp69SHPdPJAN/hZIm0C4OItdklCFmMRWYpio=
 github.com/armon/go-socks5 v0.0.0-20160902184237-e75332964ef5/go.mod h1:wHh0iHkYZB8zMSxRWpUBQtwG5a7fFgvEO+odwuTv2gs=
 github.com/beorn7/perks v1.0.1 h1:VlbKKnNfV8bJzeqoa4cOKqO6bYr3WgKZxO8Z16+hsOM=

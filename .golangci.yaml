@@ -124,7 +124,6 @@ linters:
     - stylecheck
     - tagalign
     - tagliatelle
-    - tenv
     - testableexamples
     - testifylint
     - testpackage
@@ -132,9 +131,9 @@ linters:
     - unconvert
     - unparam
     - usestdlibvars
+    - usetesting
     - varnamelen
     - whitespace
-    - wrapcheck
     - wsl
 
 linters-settings:
@@ -268,3 +267,6 @@ linters-settings:
     ignore-comments: true
   stylecheck:
     checks: ["all", "-ST1003"]
+  usetesting:
+    os-setenv: true
+    os-temp-dir: true
