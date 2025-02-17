@@ -15,12 +15,12 @@ env:
 
 jobs:
   codeql-go:
-    uses: DWSR/actions/workflows/codeql.yml@main
+    uses: DWSR/actions/.github/workflows/codeql.yml@main
     with:
       language: go
       build-mode: autobuild
   codeql-actions:
-    uses: DWSR/actions/workflows/codeql.yml@main
+    uses: DWSR/actions/.github/workflows/codeql.yml@main
     with:
       language: actions
       build-mode: none
