@@ -10,7 +10,7 @@ repos:
   - id: check-case-conflict
   - id: check-symlinks
   - id: detect-private-key
-    exclude: testdata/mytls.key
+    exclude: overlays/test/tls.key
   - id: mixed-line-ending
     args: ["--fix=lf"]
   - id: check-merge-conflict
