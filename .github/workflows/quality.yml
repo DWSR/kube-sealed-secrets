@@ -39,3 +39,7 @@ jobs:
     name: Tests
     uses: DWSR/actions/.github/workflows/go-test-single.yml@main
     if: github.event_name != 'schedule'
+
+  autoapprove-dependabot:
+    uses: DWSR/actions/.github/workflows/autoapprove-dependabot.yml@main
+    if: github.event_name != 'schedule'
