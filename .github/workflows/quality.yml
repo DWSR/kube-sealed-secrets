@@ -41,5 +41,6 @@ jobs:
     if: github.event_name != 'schedule'
 
   autoapprove-dependabot:
+    name: Auto-approve Dependabot PRs
     uses: DWSR/actions/.github/workflows/autoapprove-dependabot.yml@main
     if: github.event_name != 'schedule'
