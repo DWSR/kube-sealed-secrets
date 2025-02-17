@@ -14,6 +14,17 @@ env:
   NUM_PARTITIONS: 2
 
 jobs:
+  codeql-go:
+    uses: DWSR/actions/workflows/codeql.yml@main
+    with:
+      language: go
+      build-mode: autobuild
+  codeql-actions:
+    uses: DWSR/actions/workflows/codeql.yml@main
+    with:
+      language: actions
+      build-mode: none
+    
   tests:
     runs-on: ubuntu-latest
     name: test ${{ matrix.description }}
