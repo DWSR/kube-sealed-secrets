@@ -19,16 +19,19 @@ env:
   NUM_PARTITIONS: 2
 
 jobs:
-  codeql-go:
+  codeql:
+    name: CodeQL
     uses: DWSR/actions/.github/workflows/codeql.yml@main
+    strategy:
+      matrix:
+        include:
+          - language: go
+            build-mode: autobuild
+          - language: actions
+            build-mode: none
     with:
-      language: go
-      build-mode: autobuild
-  codeql-actions:
-    uses: DWSR/actions/.github/workflows/codeql.yml@main
-    with:
-      language: actions
-      build-mode: none
+      language: "${{ matrix.language }}"
+      build-mode: "${{ matrix.build-mode }}"
     
   tests:
     runs-on: ubuntu-latest
