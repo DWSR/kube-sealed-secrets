@@ -20,7 +20,7 @@ env:
 
 jobs:
   codeql:
-    name: CodeQL
+    name: CodeQL - "${{ matrix.language }}"
     uses: DWSR/actions/.github/workflows/codeql.yml@main
     strategy:
       matrix:
