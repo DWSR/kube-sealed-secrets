@@ -4,7 +4,7 @@ go 1.24.0
 
 require (
 	github.com/DWSR/kubeassert-go v0.0.0-20250216035038-31f7e65bdb60
-	k8s.io/apimachinery v0.33.3
+	k8s.io/apimachinery v0.33.4
 	k8s.io/client-go v0.33.3
 	sigs.k8s.io/e2e-framework v0.6.0
 	sigs.k8s.io/kustomize/api v0.20.1
